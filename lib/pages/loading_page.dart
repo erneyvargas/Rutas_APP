@@ -5,7 +5,36 @@ import 'package:rutas_app/helpers/helpers.dart';
 import 'package:rutas_app/pages/acceso_gps_page.dart';
 import 'package:rutas_app/pages/mapa_page.dart';
 
-class LoadingPage extends StatelessWidget {
+class LoadingPage extends StatefulWidget {
+  @override
+  _LoadingPageState createState() => _LoadingPageState();
+}
+
+class _LoadingPageState extends State<LoadingPage> with WidgetsBindingObserver {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addObserver(this);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  // Detecta el estado de cambio de la aplicacion para validar si tiene La GPS PRendida e ingrese directo al Mapa Page
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
+    print("============> $state");
+    if (state == AppLifecycleState.resumed) {
+      if (await Geolocator().isLocationServiceEnabled()) {
+        Navigator.pushReplacement(
+            context, navegarMapaFadeIn(context, MapaPage()));
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +54,6 @@ class LoadingPage extends StatelessWidget {
     );
   }
 
-// Valida si tiene los permisos activos
   Future checkGpsLocation(BuildContext context) async {
     // Verificar permisos de GPS
     final permisoGPS = await Permission.location.isGranted;

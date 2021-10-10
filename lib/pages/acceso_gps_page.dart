@@ -23,6 +23,7 @@ class _AccesoGpsPageState extends State<AccesoGpsPage>
   // Detecta el estado de cambio de la aplicacion para validar si tiene permisos un vez se le de desde las configuraciones y ingrese directo al loading
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) async {
+    print("============> $state");
     if (state == AppLifecycleState.resumed) {
       if (await Permission.location.isGranted) {
         Navigator.pushReplacementNamed(context, 'loading');
