@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:rutas_app/bloc/mapa/mapa_bloc.dart';
 import 'package:rutas_app/bloc/mi_ubicacion/mi_ubicacion_bloc.dart';
 
 class MapaPage extends StatefulWidget {
@@ -34,6 +35,7 @@ class _MapaPageState extends State<MapaPage> {
   }
 
   Widget crearMapa(MiUbicacionState state) {
+    final mapaBloc = BlocProvider.of<MapaBloc>(context);
     if (!state.existeUbicacion) {
       return Center(
         child: Text('Ubicando....'),
@@ -47,6 +49,10 @@ class _MapaPageState extends State<MapaPage> {
       initialCameraPosition: _cameraPosition,
       myLocationEnabled: true,
       myLocationButtonEnabled: false,
+      zoomControlsEnabled: false,
+      //onMapCreated: (GoogleMapController controller) => crearMapa.initMapa(controller),
+      // Se puede enviar ya que el controller es el primer elemento que se envia
+      onMapCreated: mapaBloc.initMapa,
     );
   }
 }
