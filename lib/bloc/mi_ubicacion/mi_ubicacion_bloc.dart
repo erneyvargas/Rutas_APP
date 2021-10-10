@@ -24,6 +24,9 @@ class MiUbicacionBloc extends Bloc<MiUbicacionEvent, MiUbicacionState> {
     this._positionSubscription =
         this._geloacator.getPositionStream(geoLocatorOptions).listen(
       (Position position) {
+        final nuevaUbicacion =
+            new LatLng(position.latitude, position.longitude);
+        add(OnUbicacionCambio(nuevaUbicacion));
         print(position);
       },
     );
@@ -31,5 +34,17 @@ class MiUbicacionBloc extends Bloc<MiUbicacionEvent, MiUbicacionState> {
 
   void cancelarSeguimiento() {
     this._positionSubscription?.cancel();
+  }
+
+  // Resive los eventos
+  @override
+  Stream<MiUbicacionState> mapEventToState(MiUbicacionEvent event) async* {
+    if (event is OnUbicacionCambio) {
+      print(event);
+      yield state.copyWith(
+        existeUbicacion: true,
+        ubicacion: event.ubicacion,
+      );
+    }
   }
 }
