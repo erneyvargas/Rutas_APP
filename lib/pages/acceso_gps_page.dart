@@ -6,7 +6,30 @@ class AccesoGpsPage extends StatefulWidget {
   _AccesoGpsPageState createState() => _AccesoGpsPageState();
 }
 
-class _AccesoGpsPageState extends State<AccesoGpsPage> {
+class _AccesoGpsPageState extends State<AccesoGpsPage>
+    with WidgetsBindingObserver {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addObserver(this);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  // Detecta el estado de cambio de la aplicacion para validar si tiene permisos un vez se le de desde las configuraciones y ingrese directo al loading
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
+    if (state == AppLifecycleState.resumed) {
+      if (await Permission.location.isGranted) {
+        Navigator.pushReplacementNamed(context, 'loading');
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

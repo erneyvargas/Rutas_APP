@@ -25,7 +25,7 @@ class LoadingPage extends StatelessWidget {
 
     // Navega a las paginas sin poder devolverse
     //Navigator.pushReplacement(context, navegarMapaFadeIn(context, MapaPage()));
-    Navigator.pushReplacement(
-        context, navegarMapaFadeIn(context, AccesoGpsPage()));
+    // Navigator.pushReplacement(
+    //     context, navegarMapaFadeIn(context, AccesoGpsPage()));
   }
 }
