@@ -7,6 +7,8 @@ class OnMapaListo extends MapaEvent {}
 
 class OnMarcarRecorrido extends MapaEvent {}
 
+class OnSeguirUbicacion extends MapaEvent {}
+
 class OnNuevaUbicacion extends MapaEvent {
   // Recibe la nueva ubicacion
   final LatLng ubicacion;
