@@ -26,11 +26,13 @@ class _MapaPageState extends State<MapaPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        // Se dispara cada vez que la ubicacion Cambie con los nuevos datos del state
-        child: BlocBuilder<MiUbicacionBloc, MiUbicacionState>(
-          builder: (_, state) => crearMapa(state),
-        ),
+      body: Stack(
+        children: [
+          BlocBuilder<MiUbicacionBloc, MiUbicacionState>(
+            builder: (_, state) => crearMapa(state),
+          ),
+          Positioned(child: SearchBar()),
+        ],
       ),
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
