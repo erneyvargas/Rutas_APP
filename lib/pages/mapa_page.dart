@@ -67,6 +67,9 @@ class _MapaPageState extends State<MapaPage> {
       // Se puede enviar ya que el controller es el primer elemento que se envia
       onMapCreated: mapaBloc.initMapa,
       polylines: mapaBloc.state.polylines.values.toSet(),
+      onCameraMove: (cameraPosition) {
+        mapaBloc.add(OnMovioMapa(cameraPosition.target));
+      },
     );
   }
 }

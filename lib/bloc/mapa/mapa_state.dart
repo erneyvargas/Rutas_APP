@@ -5,14 +5,16 @@ class MapaState {
   final bool mapaListo;
   final bool dibujarRecorrido;
   final bool seguirUbicacion;
+  final LatLng ubicacionCentral;
 
   // Es la linea con todos sus puntos y priopiedades.
   final Map<String, Polyline> polylines;
 
   MapaState(
       {this.mapaListo = false,
-      this.dibujarRecorrido = true,
+      this.dibujarRecorrido = false,
       this.seguirUbicacion = false,
+      this.ubicacionCentral,
       Map<String, Polyline> polylines})
       : this.polylines = polylines ?? new Map();
 
@@ -20,6 +22,7 @@ class MapaState {
     bool mapaListo,
     bool dibujarRecorrido,
     bool seguirUbicacion,
+    LatLng ubicacionCentral,
     Map<String, Polyline> polylines,
   }) =>
       MapaState(
@@ -27,5 +30,6 @@ class MapaState {
         dibujarRecorrido: dibujarRecorrido ?? this.dibujarRecorrido,
         polylines: polylines ?? this.polylines,
         seguirUbicacion: seguirUbicacion ?? this.seguirUbicacion,
+        ubicacionCentral: ubicacionCentral ?? this.ubicacionCentral,
       );
 }
