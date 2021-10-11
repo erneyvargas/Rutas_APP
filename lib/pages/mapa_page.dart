@@ -34,7 +34,7 @@ class _MapaPageState extends State<MapaPage> {
       ),
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
-        children: [Btn_ubicacion()],
+        children: [BtnUbicacion()],
       ),
     );
   }
@@ -62,6 +62,7 @@ class _MapaPageState extends State<MapaPage> {
       //onMapCreated: (GoogleMapController controller) => crearMapa.initMapa(controller),
       // Se puede enviar ya que el controller es el primer elemento que se envia
       onMapCreated: mapaBloc.initMapa,
+      polylines: mapaBloc.state.polylines.values.toSet(),
     );
   }
 }

@@ -26,7 +26,6 @@ class _LoadingPageState extends State<LoadingPage> with WidgetsBindingObserver {
   // Detecta el estado de cambio de la aplicacion para validar si tiene La GPS PRendida e ingrese directo al Mapa Page
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) async {
-    print("============> $state");
     if (state == AppLifecycleState.resumed) {
       if (await Geolocator().isLocationServiceEnabled()) {
         Navigator.pushReplacement(

@@ -17,6 +17,7 @@ class MapaState {
   copyWith({
     bool mapaListo,
     bool dibujarRecorrido,
+    Map<String, Polyline> polylines,
   }) =>
       MapaState(
         mapaListo: mapaListo ?? this.mapaListo,

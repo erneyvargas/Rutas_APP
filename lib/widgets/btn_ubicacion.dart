@@ -1,6 +1,6 @@
 part of "widgets.dart";
 
-class Btn_ubicacion extends StatelessWidget {
+class BtnUbicacion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mapaBloc = BlocProvider.of<MapaBloc>(context);
