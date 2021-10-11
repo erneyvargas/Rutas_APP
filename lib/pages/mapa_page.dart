@@ -34,7 +34,10 @@ class _MapaPageState extends State<MapaPage> {
       ),
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
-        children: [BtnUbicacion()],
+        children: [
+          BtnUbicacion(),
+          BtnMiRuta(),
+        ],
       ),
     );
   }

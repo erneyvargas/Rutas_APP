@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart' show Colors;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:meta/meta.dart';
 import 'package:rutas_app/themes/uber_maps_theme.dart';
@@ -17,6 +18,7 @@ class MapaBloc extends Bloc<MapaEvent, MapaState> {
   Polyline _miRuta = new Polyline(
     polylineId: PolylineId("mi_ruta"),
     width: 4,
+    color: Colors.black87,
   );
 
   void initMapa(GoogleMapController controller) {
@@ -51,6 +53,20 @@ class MapaBloc extends Bloc<MapaEvent, MapaState> {
 
       // Emitir el nuevo estado
       yield state.copyWith(polylines: currentPolynes);
+    } else if (event is OnMarcarRecorrido) {
+      if (!state.dibujarRecorrido) {
+        this._miRuta = this._miRuta.copyWith(colorParam: Colors.black87);
+      } else {
+        this._miRuta = this._miRuta.copyWith(colorParam: Colors.transparent);
+      }
+
+      // Añadir polyline al state
+      final currentPolynes = state.polylines;
+      currentPolynes['mi_ruta'] = this._miRuta;
+      yield state.copyWith(
+        dibujarRecorrido: !state.dibujarRecorrido,
+        polylines: currentPolynes,
+      );
     }
   }
 }

@@ -5,6 +5,8 @@ abstract class MapaEvent {}
 
 class OnMapaListo extends MapaEvent {}
 
+class OnMarcarRecorrido extends MapaEvent {}
+
 class OnNuevaUbicacion extends MapaEvent {
   // Recibe la nueva ubicacion
   final LatLng ubicacion;
