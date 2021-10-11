@@ -42,31 +42,35 @@ class MapaBloc extends Bloc<MapaEvent, MapaState> {
     if (event is OnMapaListo) {
       yield state.copyWith(mapaListo: true);
     } else if (event is OnNuevaUbicacion) {
-      // Listado de todos los puntos para la ruta
-      // Se extrae los puntos con el operador spreed ...
-      List<LatLng> points = [...this._miRuta.points, event.ubicacion];
-      this._miRuta = this._miRuta.copyWith(pointsParam: points);
-
-      // Añadir polyline al state
-      final currentPolynes = state.polylines;
-      currentPolynes['mi_ruta'] = this._miRuta;
-
-      // Emitir el nuevo estado
-      yield state.copyWith(polylines: currentPolynes);
+      yield* this._onNuevaUbicacion(event);
     } else if (event is OnMarcarRecorrido) {
-      if (!state.dibujarRecorrido) {
-        this._miRuta = this._miRuta.copyWith(colorParam: Colors.black87);
-      } else {
-        this._miRuta = this._miRuta.copyWith(colorParam: Colors.transparent);
-      }
-
-      // Añadir polyline al state
-      final currentPolynes = state.polylines;
-      currentPolynes['mi_ruta'] = this._miRuta;
-      yield state.copyWith(
-        dibujarRecorrido: !state.dibujarRecorrido,
-        polylines: currentPolynes,
-      );
+      yield* this._onMarcarRecorrido(event);
     }
+  }
+
+  Stream<MapaState> _onNuevaUbicacion(OnNuevaUbicacion event) async* {
+    List<LatLng> points = [...this._miRuta.points, event.ubicacion];
+    this._miRuta = this._miRuta.copyWith(pointsParam: points);
+
+    // Añadir polyline al state
+    final currentPolynes = state.polylines;
+    currentPolynes['mi_ruta'] = this._miRuta;
+    yield state.copyWith(polylines: currentPolynes);
+  }
+
+  Stream<MapaState> _onMarcarRecorrido(OnMarcarRecorrido event) async* {
+    if (!state.dibujarRecorrido) {
+      this._miRuta = this._miRuta.copyWith(colorParam: Colors.black87);
+    } else {
+      this._miRuta = this._miRuta.copyWith(colorParam: Colors.transparent);
+    }
+
+    // Añadir polyline al state
+    final currentPolynes = state.polylines;
+    currentPolynes['mi_ruta'] = this._miRuta;
+    yield state.copyWith(
+      dibujarRecorrido: !state.dibujarRecorrido,
+      polylines: currentPolynes,
+    );
   }
 }
