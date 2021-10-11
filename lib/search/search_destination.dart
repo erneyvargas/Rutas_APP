@@ -1,8 +1,9 @@
 // implementacion de un search delegate
 
 import 'package:flutter/material.dart';
+import 'package:rutas_app/models/search_result.dart';
 
-class SearchDestination extends SearchDelegate {
+class SearchDestination extends SearchDelegate<SerachResult> {
   // sobreescribe el datafield
   @override
   final String searchFieldLabel;
@@ -21,9 +22,8 @@ class SearchDestination extends SearchDelegate {
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
-      icon: Icon(Icons.arrow_back_ios),
-      onPressed: () => this.close(context, null),
-    );
+        icon: Icon(Icons.arrow_back_ios),
+        onPressed: () => this.close(context, SerachResult(cancelo: true)));
   }
 
   @override
@@ -39,8 +39,7 @@ class SearchDestination extends SearchDelegate {
           leading: Icon(Icons.location_on),
           title: Text("Colocar ubicacion Manualemnete"),
           onTap: () {
-            print("Manulamente");
-            this.close(context, null);
+            this.close(context, SerachResult(cancelo: false, manual: true));
           },
         )
       ],
