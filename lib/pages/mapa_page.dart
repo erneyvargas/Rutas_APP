@@ -32,7 +32,7 @@ class _MapaPageState extends State<MapaPage> {
             builder: (_, state) => crearMapa(state),
           ),
           MarcadorManual(),
-          //Positioned(child: SearchBar()),
+          Positioned(child: SearchBar()),
         ],
       ),
       floatingActionButton: Column(

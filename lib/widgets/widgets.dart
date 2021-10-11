@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rutas_app/bloc/busqueda/busqueda_bloc.dart';
 import 'package:rutas_app/bloc/mapa/mapa_bloc.dart';
 import 'package:rutas_app/bloc/mi_ubicacion/mi_ubicacion_bloc.dart';
 import 'package:rutas_app/models/search_result.dart';

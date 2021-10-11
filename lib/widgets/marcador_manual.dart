@@ -3,6 +3,21 @@ part of 'widgets.dart';
 class MarcadorManual extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    return BlocBuilder<BusquedaBloc, BusquedaState>(
+      builder: (context, state) {
+        if (state.seleccionManual) {
+          return _BuildMarcadorManual();
+        } else {
+          return Container();
+        }
+      },
+    );
+  }
+}
+
+class _BuildMarcadorManual extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     return Stack(
       children: [
@@ -19,7 +34,7 @@ class MarcadorManual extends StatelessWidget {
                 color: Colors.black87,
               ),
               onPressed: () {
-                // hacer algo
+                context.read<BusquedaBloc>().add(OnDesactivarMarcadorManual());
               },
             ),
           ),
@@ -43,7 +58,9 @@ class MarcadorManual extends StatelessWidget {
             shape: StadiumBorder(),
             elevation: 0,
             splashColor: Colors.transparent,
-            onPressed: () {},
+            onPressed: () {
+              // gacer algo
+            },
           ),
         )
       ],
