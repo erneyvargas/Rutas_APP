@@ -3,10 +3,24 @@ part of 'mapa_bloc.dart';
 @immutable
 class MapaState {
   final bool mapaListo;
+  final bool dibujarRecorrido;
 
-  MapaState({
-    this.mapaListo = false,
-  });
-  copyWith({bool mapaListo}) =>
-      MapaState(mapaListo: mapaListo ?? this.mapaListo);
+  // Es la linea con todos sus puntos y priopiedades.
+  final Map<String, Polyline> polylines;
+
+  MapaState(
+      {this.mapaListo = false,
+      this.dibujarRecorrido = true,
+      Map<String, Polyline> polylines})
+      : this.polylines = polylines ?? new Map();
+
+  copyWith({
+    bool mapaListo,
+    bool dibujarRecorrido,
+  }) =>
+      MapaState(
+        mapaListo: mapaListo ?? this.mapaListo,
+        dibujarRecorrido: dibujarRecorrido ?? this.dibujarRecorrido,
+        polylines: polylines ?? this.polylines,
+      );
 }

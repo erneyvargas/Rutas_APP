@@ -41,11 +41,15 @@ class _MapaPageState extends State<MapaPage> {
 
   Widget crearMapa(MiUbicacionState state) {
     final mapaBloc = BlocProvider.of<MapaBloc>(context);
+
     if (!state.existeUbicacion) {
       return Center(
         child: Text('Ubicando....'),
       );
     }
+    // Escucha el cambio de ubicacion
+    mapaBloc.add(OnNuevaUbicacion(state.ubicacion));
+
     final _cameraPosition = new CameraPosition(
       target: state.ubicacion,
       zoom: 15,

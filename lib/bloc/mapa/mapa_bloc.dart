@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:bloc/bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:meta/meta.dart';
@@ -34,6 +33,8 @@ class MapaBloc extends Bloc<MapaEvent, MapaState> {
     if (event is OnMapaListo) {
       print("Mapa Listo");
       yield state.copyWith(mapaListo: true);
+    } else if (event is OnNuevaUbicacion) {
+      print("Nueva Ubicacion: ${event.ubicacion}");
     }
   }
 }
