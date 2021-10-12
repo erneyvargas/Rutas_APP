@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:rutas_app/models/search_response.dart';
 import 'package:rutas_app/models/traffic_response.dart';
 
 class TrafficService {
@@ -17,12 +18,6 @@ class TrafficService {
 
   Future<TrafficResponse> geoCoordsInicioDestino(
       LatLng inicio, LatLng destino) async {
-    print("inicio: $inicio");
-    print("destino: $destino");
-
-    //final coordString =
-    //"${inicio.latitude},${inicio.longitude};${destino.latitude},${destino.longitude}";
-
     final url = "${this._baseUrl}/directions/json";
 
     final resp = await this._dio.get(url, queryParameters: {
@@ -33,5 +28,21 @@ class TrafficService {
     });
     final data = TrafficResponse.fromMap(resp.data);
     return data;
+  }
+
+  Future<SearchResponse> getResuladosPorQuery(
+      String busqueda, LatLng proximedad) async {
+    final url = "${this._baseUrl}/place/textsearch/json";
+
+    final resp = await this._dio.get(url, queryParameters: {
+      'location': '${proximedad.latitude},${proximedad.longitude}',
+      'query': '$busqueda',
+      'radius': 10000,
+      'key': this._apyKey,
+      'language': 'es',
+    });
+
+    final searchResponse = SearchResponse.fromMap(resp.data);
+    return searchResponse;
   }
 }
