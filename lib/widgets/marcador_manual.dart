@@ -65,12 +65,34 @@ class _BuildMarcadorManual extends StatelessWidget {
               elevation: 0,
               splashColor: Colors.transparent,
               onPressed: () {
-                // gacer algo
+                this.caclularDestino(context);
               },
             ),
           ),
         )
       ],
     );
+  }
+
+  void caclularDestino(BuildContext context) async {
+    final trafficService = new TrafficService();
+    final inicio = context.read<MiUbicacionBloc>().state.ubicacion;
+    final destino = context.read<MapaBloc>().state.ubicacionCentral;
+
+    final trafficResponse =
+        await trafficService.geoCoordsInicioDestino(inicio, destino);
+
+    final points = trafficResponse.routes[0].legs[0].steps;
+
+    final distancia = trafficResponse.routes[0].legs[0].distance;
+    final duracion = trafficResponse.routes[0].legs[0].duration;
+
+    final List<LatLng> rutasCoords = points
+        .map(
+            (point) => LatLng(point.startLocation.lat, point.startLocation.lng))
+        .toList();
+
+    print(duracion);
+    //final duracion = trafficResponse.
   }
 }
