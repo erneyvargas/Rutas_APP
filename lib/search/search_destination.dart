@@ -57,14 +57,17 @@ class SearchDestination extends SearchDelegate<SerachResult> {
   }
 
   Widget _construirResultadosSugerencias() {
-    if (this.query.isEmpty) {
-      return Container();
-    }
-    return FutureBuilder(
-      future: this
-          ._trafficService
-          .getResuladosPorQuery(this.query.trim(), proximedad),
-      //initialData: InitialData,
+    // if (this.query.isEmpty) {
+    //   return Container();
+    // }
+
+    this
+        ._trafficService
+        .getSugerenciasPorQuery(this.query.trim(), this.proximedad);
+
+    //
+    return StreamBuilder(
+      stream: this._trafficService.sugerenciasStream,
       builder: (BuildContext context, AsyncSnapshot<SearchResponse> snapshot) {
         if (!snapshot.hasData) {
           return Center(
