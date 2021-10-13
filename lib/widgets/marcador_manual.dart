@@ -86,15 +86,21 @@ class _BuildMarcadorManual extends StatelessWidget {
 
     final points = trafficResponse.routes[0].legs[0].steps;
 
-    final distancia = trafficResponse.routes[0].legs[0].distance.toString();
-    final duracion = trafficResponse.routes[0].legs[0].duration.toString();
+    final distancia = trafficResponse.routes[0].legs[0].distance.text;
+    final duracion = trafficResponse.routes[0].legs[0].duration.text;
+    final nombreDestino = trafficResponse.routes[0].legs[0].endAddress;
 
     final List<LatLng> rutasCoords = points
         .map(
             (point) => LatLng(point.startLocation.lat, point.startLocation.lng))
         .toList();
 
-    mapaBloc.add(OnCrearRutaInicioDestino(rutasCoords, distancia, duracion));
+    mapaBloc.add(OnCrearRutaInicioDestino(
+      rutasCoords,
+      distancia,
+      duracion,
+      nombreDestino,
+    ));
     Navigator.of(context).pop();
     // Desactivar el boton confirmar Destino
     context.read<BusquedaBloc>().add(OnDesactivarMarcadorManual());

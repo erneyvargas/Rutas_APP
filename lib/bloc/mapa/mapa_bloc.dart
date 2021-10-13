@@ -108,15 +108,29 @@ class MapaBloc extends Bloc<MapaEvent, MapaState> {
 
     // Marcadores
     final markerInicio = new Marker(
-        markerId: MarkerId("inicio"), position: event.rutaCoordenadas[0]);
+        markerId: MarkerId("inicio"),
+        position: event.rutaCoordenadas[0],
+        infoWindow: InfoWindow(
+          title: "Mi Ubicacion",
+          snippet: "Duarcion: ${event.duracion}",
+        ));
 
     final markerDestino = new Marker(
         markerId: MarkerId("destino"),
-        position: event.rutaCoordenadas[event.rutaCoordenadas.length - 1]);
+        position: event.rutaCoordenadas[event.rutaCoordenadas.length - 1],
+        infoWindow: InfoWindow(
+          title: event.nombreDestino,
+          snippet: "Distancia: ${event.distancia}",
+        ));
 
     final newMarkers = {...state.markers};
     newMarkers['inicio'] = markerInicio;
     newMarkers['destino'] = markerDestino;
+
+    Future.delayed(Duration(milliseconds: 300)).then((value) {
+      _googleMapController.showMarkerInfoWindow(MarkerId("inicio"));
+      _googleMapController.showMarkerInfoWindow(MarkerId("destino"));
+    });
 
     yield state.copyWith(
       polylines: currentPolylines, markers: newMarkers,
