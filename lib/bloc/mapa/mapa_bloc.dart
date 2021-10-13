@@ -3,6 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart' show Colors;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:meta/meta.dart';
+import 'package:rutas_app/helpers/helpers.dart';
 import 'package:rutas_app/themes/uber_maps_theme.dart';
 
 part 'mapa_event.dart';
@@ -106,9 +107,12 @@ class MapaBloc extends Bloc<MapaEvent, MapaState> {
     final currentPolylines = state.polylines;
     currentPolylines["mi_ruta_destino"] = this._miRutaDestino;
 
+    final iconInicio = await getAssetImageMarker();
+    final iconDestino = await getNetworkImageMarker();
     // Marcadores
     final markerInicio = new Marker(
         markerId: MarkerId("inicio"),
+        icon: iconInicio,
         position: event.rutaCoordenadas[0],
         infoWindow: InfoWindow(
           title: "Mi Ubicacion",
@@ -118,17 +122,18 @@ class MapaBloc extends Bloc<MapaEvent, MapaState> {
     final markerDestino = new Marker(
         markerId: MarkerId("destino"),
         position: event.rutaCoordenadas[event.rutaCoordenadas.length - 1],
+        icon: iconDestino,
         infoWindow: InfoWindow(
           title: event.nombreDestino,
           snippet: "Distancia: ${event.distancia}",
         ));
 
     final newMarkers = {...state.markers};
-    newMarkers['inicio'] = markerInicio;
     newMarkers['destino'] = markerDestino;
+    newMarkers['inicio'] = markerInicio;
 
     Future.delayed(Duration(milliseconds: 300)).then((value) {
-      _googleMapController.showMarkerInfoWindow(MarkerId("inicio"));
+      //_googleMapController.showMarkerInfoWindow(MarkerId("inicio"));
       _googleMapController.showMarkerInfoWindow(MarkerId("destino"));
     });
 
