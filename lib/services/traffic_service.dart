@@ -34,15 +34,19 @@ class TrafficService {
       String busqueda, LatLng proximedad) async {
     final url = "${this._baseUrl}/place/textsearch/json";
 
-    final resp = await this._dio.get(url, queryParameters: {
-      'location': '${proximedad.latitude},${proximedad.longitude}',
-      'query': '$busqueda',
-      'radius': 10000,
-      'key': this._apyKey,
-      'language': 'es',
-    });
+    try {
+      final resp = await this._dio.get(url, queryParameters: {
+        'location': '${proximedad.latitude},${proximedad.longitude}',
+        'query': '$busqueda',
+        'radius': 10000,
+        'key': this._apyKey,
+        'language': 'es',
+      });
 
-    final searchResponse = SearchResponse.fromMap(resp.data);
-    return searchResponse;
+      final searchResponse = SearchResponse.fromJson(resp.data);
+      return searchResponse;
+    } catch (e) {
+      return SearchResponse(results: []);
+    }
   }
 }

@@ -1,8 +1,13 @@
 // To parse this JSON data, do
 //
-//     final searchResponse = searchResponseFromMap(jsonString);
+//     final searchResponse = searchResponseFromJson(jsonString);
 
 import 'dart:convert';
+
+SearchResponse searchResponseFromJson(String str) =>
+    SearchResponse.fromJson(json.decode(str));
+
+String searchResponseToJson(SearchResponse data) => json.encode(data.toJson());
 
 class SearchResponse {
   SearchResponse({
@@ -15,22 +20,17 @@ class SearchResponse {
   List<Result> results;
   String status;
 
-  factory SearchResponse.fromJson(String str) =>
-      SearchResponse.fromMap(json.decode(str));
-
-  String toJson() => json.encode(toMap());
-
-  factory SearchResponse.fromMap(Map<String, dynamic> json) => SearchResponse(
+  factory SearchResponse.fromJson(Map<String, dynamic> json) => SearchResponse(
         htmlAttributions:
             List<dynamic>.from(json["html_attributions"].map((x) => x)),
         results:
-            List<Result>.from(json["results"].map((x) => Result.fromMap(x))),
+            List<Result>.from(json["results"].map((x) => Result.fromJson(x))),
         status: json["status"],
       );
 
-  Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toJson() => {
         "html_attributions": List<dynamic>.from(htmlAttributions.map((x) => x)),
-        "results": List<dynamic>.from(results.map((x) => x.toMap())),
+        "results": List<dynamic>.from(results.map((x) => x.toJson())),
         "status": status,
       };
 }
@@ -70,46 +70,42 @@ class Result {
   List<String> types;
   int userRatingsTotal;
 
-  factory Result.fromJson(String str) => Result.fromMap(json.decode(str));
-
-  String toJson() => json.encode(toMap());
-
-  factory Result.fromMap(Map<String, dynamic> json) => Result(
+  factory Result.fromJson(Map<String, dynamic> json) => Result(
         businessStatus: json["business_status"],
         formattedAddress: json["formatted_address"],
-        geometry: Geometry.fromMap(json["geometry"]),
+        geometry: Geometry.fromJson(json["geometry"]),
         icon: json["icon"],
         iconBackgroundColor: json["icon_background_color"],
         iconMaskBaseUri: json["icon_mask_base_uri"],
         name: json["name"],
         openingHours: json["opening_hours"] == null
             ? null
-            : OpeningHours.fromMap(json["opening_hours"]),
+            : OpeningHours.fromJson(json["opening_hours"]),
         photos: json["photos"] == null
             ? null
-            : List<Photo>.from(json["photos"].map((x) => Photo.fromMap(x))),
+            : List<Photo>.from(json["photos"].map((x) => Photo.fromJson(x))),
         placeId: json["place_id"],
-        plusCode: PlusCode.fromMap(json["plus_code"]),
+        plusCode: PlusCode.fromJson(json["plus_code"]),
         rating: json["rating"].toDouble(),
         reference: json["reference"],
         types: List<String>.from(json["types"].map((x) => x)),
         userRatingsTotal: json["user_ratings_total"],
       );
 
-  Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toJson() => {
         "business_status": businessStatus,
         "formatted_address": formattedAddress,
-        "geometry": geometry.toMap(),
+        "geometry": geometry.toJson(),
         "icon": icon,
         "icon_background_color": iconBackgroundColor,
         "icon_mask_base_uri": iconMaskBaseUri,
         "name": name,
-        "opening_hours": openingHours == null ? null : openingHours.toMap(),
+        "opening_hours": openingHours == null ? null : openingHours.toJson(),
         "photos": photos == null
             ? null
-            : List<dynamic>.from(photos.map((x) => x.toMap())),
+            : List<dynamic>.from(photos.map((x) => x.toJson())),
         "place_id": placeId,
-        "plus_code": plusCode.toMap(),
+        "plus_code": plusCode.toJson(),
         "rating": rating,
         "reference": reference,
         "types": List<dynamic>.from(types.map((x) => x)),
@@ -126,18 +122,14 @@ class Geometry {
   Location location;
   Viewport viewport;
 
-  factory Geometry.fromJson(String str) => Geometry.fromMap(json.decode(str));
-
-  String toJson() => json.encode(toMap());
-
-  factory Geometry.fromMap(Map<String, dynamic> json) => Geometry(
-        location: Location.fromMap(json["location"]),
-        viewport: Viewport.fromMap(json["viewport"]),
+  factory Geometry.fromJson(Map<String, dynamic> json) => Geometry(
+        location: Location.fromJson(json["location"]),
+        viewport: Viewport.fromJson(json["viewport"]),
       );
 
-  Map<String, dynamic> toMap() => {
-        "location": location.toMap(),
-        "viewport": viewport.toMap(),
+  Map<String, dynamic> toJson() => {
+        "location": location.toJson(),
+        "viewport": viewport.toJson(),
       };
 }
 
@@ -150,16 +142,12 @@ class Location {
   double lat;
   double lng;
 
-  factory Location.fromJson(String str) => Location.fromMap(json.decode(str));
-
-  String toJson() => json.encode(toMap());
-
-  factory Location.fromMap(Map<String, dynamic> json) => Location(
+  factory Location.fromJson(Map<String, dynamic> json) => Location(
         lat: json["lat"].toDouble(),
         lng: json["lng"].toDouble(),
       );
 
-  Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toJson() => {
         "lat": lat,
         "lng": lng,
       };
@@ -174,18 +162,14 @@ class Viewport {
   Location northeast;
   Location southwest;
 
-  factory Viewport.fromJson(String str) => Viewport.fromMap(json.decode(str));
-
-  String toJson() => json.encode(toMap());
-
-  factory Viewport.fromMap(Map<String, dynamic> json) => Viewport(
-        northeast: Location.fromMap(json["northeast"]),
-        southwest: Location.fromMap(json["southwest"]),
+  factory Viewport.fromJson(Map<String, dynamic> json) => Viewport(
+        northeast: Location.fromJson(json["northeast"]),
+        southwest: Location.fromJson(json["southwest"]),
       );
 
-  Map<String, dynamic> toMap() => {
-        "northeast": northeast.toMap(),
-        "southwest": southwest.toMap(),
+  Map<String, dynamic> toJson() => {
+        "northeast": northeast.toJson(),
+        "southwest": southwest.toJson(),
       };
 }
 
@@ -196,16 +180,11 @@ class OpeningHours {
 
   bool openNow;
 
-  factory OpeningHours.fromJson(String str) =>
-      OpeningHours.fromMap(json.decode(str));
-
-  String toJson() => json.encode(toMap());
-
-  factory OpeningHours.fromMap(Map<String, dynamic> json) => OpeningHours(
+  factory OpeningHours.fromJson(Map<String, dynamic> json) => OpeningHours(
         openNow: json["open_now"],
       );
 
-  Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toJson() => {
         "open_now": openNow,
       };
 }
@@ -223,11 +202,7 @@ class Photo {
   String photoReference;
   int width;
 
-  factory Photo.fromJson(String str) => Photo.fromMap(json.decode(str));
-
-  String toJson() => json.encode(toMap());
-
-  factory Photo.fromMap(Map<String, dynamic> json) => Photo(
+  factory Photo.fromJson(Map<String, dynamic> json) => Photo(
         height: json["height"],
         htmlAttributions:
             List<String>.from(json["html_attributions"].map((x) => x)),
@@ -235,7 +210,7 @@ class Photo {
         width: json["width"],
       );
 
-  Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toJson() => {
         "height": height,
         "html_attributions": List<dynamic>.from(htmlAttributions.map((x) => x)),
         "photo_reference": photoReference,
@@ -252,16 +227,12 @@ class PlusCode {
   String compoundCode;
   String globalCode;
 
-  factory PlusCode.fromJson(String str) => PlusCode.fromMap(json.decode(str));
-
-  String toJson() => json.encode(toMap());
-
-  factory PlusCode.fromMap(Map<String, dynamic> json) => PlusCode(
+  factory PlusCode.fromJson(Map<String, dynamic> json) => PlusCode(
         compoundCode: json["compound_code"],
         globalCode: json["global_code"],
       );
 
-  Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toJson() => {
         "compound_code": compoundCode,
         "global_code": globalCode,
       };
