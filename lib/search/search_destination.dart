@@ -91,7 +91,17 @@ class SearchDestination extends SearchDelegate<SerachResult> {
               title: Text(lugar.name),
               subtitle: Text(lugar.formattedAddress),
               onTap: () {
-                print(lugar);
+                this.close(
+                  context,
+                  SerachResult(
+                    cancelo: false,
+                    manual: false,
+                    position: LatLng(lugar.geometry.location.lat,
+                        lugar.geometry.location.lng),
+                    nombreDestino: lugar.name,
+                    description: lugar.formattedAddress,
+                  ),
+                );
               },
             );
           },

@@ -48,7 +48,7 @@ class SearchBar extends StatelessWidget {
     );
   }
 
-  void retornoBusqueda(BuildContext context, SerachResult result) {
+  Future retornoBusqueda(BuildContext context, SerachResult result) async {
     print("Cancelo: ${result.cancelo}");
     print("Manual: ${result.manual}");
     if (result.cancelo) return;
@@ -56,6 +56,28 @@ class SearchBar extends StatelessWidget {
     if (result.manual) {
       context.read<BusquedaBloc>().add(OnActivarMarcadorManual());
       //BlocProvider.of<BusquedaBloc>(context).add(OnActivarMarcadorManual());
+      return;
     }
+    // Calcular la ruta en base al valor: Result
+    calculandoAlerta(context);
+    final trafficService = new TrafficService();
+    final mapaBloc = context.read<MapaBloc>();
+
+    final inicio = context.read<MiUbicacionBloc>().state.ubicacion;
+    final destino = result.position;
+
+    final drivingResponse =
+        await trafficService.geoCoordsInicioDestino(inicio, destino);
+    final points = drivingResponse.routes[0].legs[0].steps;
+
+    final distancia = drivingResponse.routes[0].legs[0].distance.toString();
+    final duracion = drivingResponse.routes[0].legs[0].duration.toString();
+
+    final List<LatLng> rutasCoords = points
+        .map(
+            (point) => LatLng(point.startLocation.lat, point.startLocation.lng))
+        .toList();
+    mapaBloc.add(OnCrearRutaInicioDestino(rutasCoords, distancia, duracion));
+    Navigator.of(context).pop();
   }
 }
