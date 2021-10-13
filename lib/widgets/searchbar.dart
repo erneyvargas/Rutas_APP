@@ -22,8 +22,10 @@ class SearchBar extends StatelessWidget {
         child: GestureDetector(
           onTap: () async {
             final proximedad = context.read<MiUbicacionBloc>().state.ubicacion;
+            final historial = context.read<BusquedaBloc>().state.historial;
             final resultado = await showSearch(
-                context: context, delegate: SearchDestination(proximedad));
+                context: context,
+                delegate: SearchDestination(proximedad, historial));
             this.retornoBusqueda(context, resultado);
           },
           child: Container(
@@ -79,5 +81,9 @@ class SearchBar extends StatelessWidget {
         .toList();
     mapaBloc.add(OnCrearRutaInicioDestino(rutasCoords, distancia, duracion));
     Navigator.of(context).pop();
+
+    //Agregar al historiañ
+    final busquedaBloc = context.read<BusquedaBloc>();
+    busquedaBloc.add(OnAgregarHistorial(result));
   }
 }

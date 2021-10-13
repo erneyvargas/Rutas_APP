@@ -12,7 +12,8 @@ class SearchDestination extends SearchDelegate<SerachResult> {
   final String searchFieldLabel;
   final TrafficService _trafficService;
   final LatLng proximedad;
-  SearchDestination(this.proximedad)
+  final List<SerachResult> historial;
+  SearchDestination(this.proximedad, this.historial)
       : this.searchFieldLabel = "Buscar...",
         this._trafficService = new TrafficService();
 
@@ -49,7 +50,18 @@ class SearchDestination extends SearchDelegate<SerachResult> {
             onTap: () {
               this.close(context, SerachResult(cancelo: false, manual: true));
             },
-          )
+          ),
+          ...this
+              .historial
+              .map((result) => ListTile(
+                    leading: Icon(Icons.history),
+                    title: Text(result.nombreDestino),
+                    subtitle: Text(result.description),
+                    onTap: () {
+                      this.close(context, result);
+                    },
+                  ))
+              .toList()
         ],
       );
     }
