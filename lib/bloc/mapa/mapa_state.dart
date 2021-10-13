@@ -10,13 +10,17 @@ class MapaState {
   // Es la linea con todos sus puntos y priopiedades.
   final Map<String, Polyline> polylines;
 
-  MapaState(
-      {this.mapaListo = false,
-      this.dibujarRecorrido = false,
-      this.seguirUbicacion = false,
-      this.ubicacionCentral,
-      Map<String, Polyline> polylines})
-      : this.polylines = polylines ?? new Map();
+  final Map<String, Marker> markers;
+
+  MapaState({
+    this.mapaListo = false,
+    this.dibujarRecorrido = false,
+    this.seguirUbicacion = false,
+    this.ubicacionCentral,
+    Map<String, Polyline> polylines,
+    Map<String, Marker> markers,
+  })  : this.polylines = polylines ?? new Map(),
+        this.markers = markers ?? new Map();
 
   copyWith({
     bool mapaListo,
@@ -24,6 +28,7 @@ class MapaState {
     bool seguirUbicacion,
     LatLng ubicacionCentral,
     Map<String, Polyline> polylines,
+    Map<String, Marker> markers,
   }) =>
       MapaState(
         mapaListo: mapaListo ?? this.mapaListo,
@@ -31,5 +36,6 @@ class MapaState {
         polylines: polylines ?? this.polylines,
         seguirUbicacion: seguirUbicacion ?? this.seguirUbicacion,
         ubicacionCentral: ubicacionCentral ?? this.ubicacionCentral,
+        markers: markers ?? this.markers,
       );
 }
