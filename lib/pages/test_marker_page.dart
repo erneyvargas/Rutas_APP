@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rutas_app/custom_markers/marker_destino.dart';
-import 'package:rutas_app/custom_markers/marker_inicio.dart';
+import 'package:rutas_app/custom_markers/custom_markers.dart';
 
 class TestMarkerPage extends StatelessWidget {
   @override
@@ -13,7 +12,7 @@ class TestMarkerPage extends StatelessWidget {
           color: Colors.red,
           child: CustomPaint(
             painter: MarkerDestino1Painter(
-              "kdkdkkd, ",
+              "kdkdkkd, kjsdfakjsdlfkjaksjfdaskdflakdjsflkdfjsalkjsdladjsfakjsfalksfd ",
               "2500",
             ),
           ),
