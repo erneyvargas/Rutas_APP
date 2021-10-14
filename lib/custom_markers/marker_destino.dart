@@ -48,7 +48,7 @@ class MarkerDestino1Painter extends CustomPainter {
     // Dibujar Textos
     TextSpan textSpan = new TextSpan(
       style: TextStyle(
-          color: Colors.white, fontSize: 22, fontWeight: FontWeight.w400),
+          color: Colors.white, fontSize: 29, fontWeight: FontWeight.w400),
       text: metros,
     );
 
@@ -67,7 +67,7 @@ class MarkerDestino1Painter extends CustomPainter {
     textSpan = new TextSpan(
       style: TextStyle(
           color: Colors.white, fontSize: 20, fontWeight: FontWeight.w400),
-      text: 'Km',
+      text: '',
     );
 
     textPainter = new TextPainter(
