@@ -1,9 +1,9 @@
 part of 'custom_markers.dart';
 
-class MarkerInicioPainter extends CustomPainter {
+class MarkerInicio1Painter extends CustomPainter {
   final String minutos;
 
-  MarkerInicioPainter(this.minutos);
+  MarkerInicio1Painter(this.minutos);
   @override
   void paint(Canvas canvas, Size size) {
     final double circuloNegroR = 20;
@@ -47,7 +47,7 @@ class MarkerInicioPainter extends CustomPainter {
     // Dibujar Textos
     TextSpan textSpan = new TextSpan(
       style: TextStyle(
-          color: Colors.white, fontSize: 30, fontWeight: FontWeight.w400),
+          color: Colors.white, fontSize: 29, fontWeight: FontWeight.w400),
       text: minutos,
     );
 
@@ -66,7 +66,7 @@ class MarkerInicioPainter extends CustomPainter {
     textSpan = new TextSpan(
       style: TextStyle(
           color: Colors.white, fontSize: 20, fontWeight: FontWeight.w400),
-      text: 'Min',
+      text: '',
     );
 
     textPainter = new TextPainter(
@@ -98,8 +98,8 @@ class MarkerInicioPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(MarkerInicioPainter oldDelegate) => true;
+  bool shouldRepaint(MarkerInicio1Painter oldDelegate) => true;
 
   @override
-  bool shouldRebuildSemantics(MarkerInicioPainter oldDelegate) => false;
+  bool shouldRebuildSemantics(MarkerInicio1Painter oldDelegate) => false;
 }
