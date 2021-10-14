@@ -74,7 +74,7 @@ class SearchBar extends StatelessWidget {
 
     final distancia = drivingResponse.routes[0].legs[0].distance.text;
     final duracion = drivingResponse.routes[0].legs[0].duration.text;
-    final nombreDestino = drivingResponse.routes[0].legs[0].endAddress;
+    final nombreDestino = drivingResponse.routes[0].legs[0].startAddress;
 
     final List<LatLng> rutasCoords = points
         .map(

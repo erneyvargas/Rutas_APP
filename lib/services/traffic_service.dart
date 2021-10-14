@@ -15,9 +15,10 @@ class TrafficService {
   }
 
   final _dio = new Dio();
-  final debouncer = Debouncer<String>(duration: Duration(milliseconds: 500));
+  final debouncer = Debouncer<String>(duration: Duration(milliseconds: 400));
+
   final StreamController<SearchResponse> _sugerenciasStreamController =
-      StreamController<SearchResponse>.broadcast();
+      new StreamController<SearchResponse>.broadcast();
 
   Stream<SearchResponse> get sugerenciasStream =>
       this._sugerenciasStreamController.stream;

@@ -88,7 +88,7 @@ class _BuildMarcadorManual extends StatelessWidget {
 
     final distancia = trafficResponse.routes[0].legs[0].distance.text;
     final duracion = trafficResponse.routes[0].legs[0].duration.text;
-    final nombreDestino = trafficResponse.routes[0].legs[0].endAddress;
+    final nombreDestino = trafficResponse.routes[0].legs[0].startAddress;
 
     final List<LatLng> rutasCoords = points
         .map(

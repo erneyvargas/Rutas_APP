@@ -69,9 +69,9 @@ class SearchDestination extends SearchDelegate<SerachResult> {
   }
 
   Widget _construirResultadosSugerencias() {
-    // if (this.query.isEmpty) {
-    //   return Container();
-    // }
+    if (this.query == 0) {
+      return Container();
+    }
 
     this
         ._trafficService
